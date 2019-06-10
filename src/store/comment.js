@@ -20,8 +20,7 @@ export default {
   actions: {
     get (context, postId) {
       context.commit('loading')
-      const route = 'https://jsonplaceholder.typicode.com/comments?postId=' + postId
-      axios.get(route).then(response => {
+      axios.get(`http://localhost:3000/comments?postId=${postId}`).then(response => {
         context.commit('success', response.data)
       }).catch(err => {
         console.log(err)

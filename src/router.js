@@ -20,6 +20,10 @@ export default new Router({
     {
       path: '/board/user/:userId',
       component: () => import('./views/User.vue')
+    },
+    {
+      path: '/board/newpost',
+      component: () => import('./components/Newpost.vue')
     }
   ],
   scrollBehavior (to, from, savedPosition) {

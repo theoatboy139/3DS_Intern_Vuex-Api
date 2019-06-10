@@ -1,5 +1,6 @@
 <template>
     <div>
+      <div v-if="!$store.state.users.isLoading">
         <h3 id='left'>Posts by user{{this.$route.params.userId}}</h3>
         <div id="cards" class="card" v-for="(post,index) in getPost" :key="index">
             <h3 text="bold" class="card-header">{{post.title}}</h3>
@@ -10,27 +11,33 @@
             </div>
         </div>
     </div>
+      <div class="text-center" v-else>
+        <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <h1>Loading...</h1>
+      </div>
+    </div>
 </template>
 
 <script>
-import {postPerPage} from '@/config/config'
+import { postPerPage } from '@/config/config'
 export default {
-    mounted() {
-        console.log(this.$route.params)
-        const userId = this.$route.params.userId
-        this.$store.dispatch("users/get", userId)
+  mounted () {
+    const userId = this.$route.params.userId
+    this.$store.dispatch('users/get', userId)
   },
-    computed: {
-        getPost() {
-            return this.$store.state.users.items
-        }
-    },
-    watch: {
-    $route(to, from) {
-             this.$store.dispatch("users/get", to.params.userId);
-        }
-    },
-};
+  computed: {
+    getPost () {
+      return this.$store.state.users.items
+    }
+  },
+  watch: {
+    $route (to, from) {
+      this.$store.dispatch('users/get', to.params.userId)
+    }
+  }
+}
 </script>
 
 <style>

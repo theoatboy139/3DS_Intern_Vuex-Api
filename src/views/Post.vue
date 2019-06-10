@@ -1,23 +1,31 @@
 <template>
     <div>
-        <h3 id='left'>Post</h3>
+      <div v-if="!$store.state.posts.isLoading">
+        <h3 class='left'>Post</h3>
         <div id="cards" class="card" v-for="(post, id) in getPost" :key="'post' + id">
             <h4 text="bold" class="card-header">{{post.title}}</h4>
             <div class="card-body">
                 <p class="card-text">started by <a href="#" @click.prevent="detailsOfUser(post.userId)">user{{post.userId}}</a></p>
                 <hr>
-                <p class="card-text">{{post.body}}}</p>
+                <p class="card-text">{{post.body}}</p>
             </div>
         </div>
-        <h3 id='left'>Comments</h3>
+        <h3 class='left'>Comments</h3>
         <div id="cards" class="card" v-for="(comment,index) in fetchComments" :key="index">
             <h4 text="bold" class="card-header">user: {{comment.name}}</h4>
             <div class="card-body">
                 <p class="card-text">contact email: {{comment.email}}</p>
                 <hr>
-                <p class="card-text">{{comment.body}}}</p>
+                <p class="card-text">{{comment.body}}</p>
             </div>
         </div>
+      </div>
+      <div class="text-center" v-else>
+        <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <h1>Loading...</h1>
+      </div>
     </div>
 </template>
 
@@ -46,22 +54,14 @@ export default {
 </script>
 
 <style>
-div {
-    margin: 0px
-}
-#divid{
-    margin: 0px;
-}
-#cards {
-  text-align: left;
-  margin-top: 15px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%
-}
-#left {
+  .card {
     text-align: left;
-    margin-left: 50px;
-    margin-top: 15px;
-}
+    margin: 20px auto;
+    width: 75%;
+  }
+  .left {
+      text-align: left;
+      margin-left: 50px;
+      margin-top: 15px;
+  }
 </style>

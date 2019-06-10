@@ -9,7 +9,7 @@ export default {
   },
   mutations: {
     success (state, payload) {
-      state.items = [ payload ]
+      state.items = payload
       state.count = payload.length
       state.isLoading = false
     },
@@ -20,8 +20,8 @@ export default {
   actions: {
     get (context, postId) {
       context.commit('loading')
-      const route = 'https://jsonplaceholder.typicode.com/posts/' + postId
-      axios.get(route).then(response => {
+      console.log('fetching', `http://localhost:3000/posts?id=${postId}`)
+      axios.get(`http://localhost:3000/posts?id=${postId}`).then(response => {
         context.commit('success', response.data)
       }).catch(err => {
         console.log(err)
